@@ -1,0 +1,428 @@
+﻿{
+  "entries": [
+    {
+      "file_path": "packages\\charts\\src\\VerticalStackedBarChart.base.tsx",
+      "description": "Converted the class component to a functional component using React hooks for state management and lifecycle methods.",
+      "original": {
+        "start": 173,
+        "end": 189,
+        "lines": [
+          {
+            "number": 173,
+            "code": "  }"
+          },
+          {
+            "number": 174,
+            "code": ""
+          },
+          {
+            "number": 175,
+            "code": "  public componentDidUpdate(prevProps: IVerticalStackedBarChartProps): void {"
+          },
+          {
+            "number": 176,
+            "code": "    if (!areArraysEqual(prevProps.legendProps?.selectedLegends, this.props.legendProps?.selectedLegends)) {"
+          },
+          {
+            "number": 177,
+            "code": "      this.setState({"
+          },
+          {
+            "number": 178,
+            "code": "        selectedLegends: this.props.legendProps?.selectedLegends || [],"
+          },
+          {
+            "number": 179,
+            "code": "      });"
+          },
+          {
+            "number": 180,
+            "code": "    }"
+          },
+          {
+            "number": 181,
+            "code": ""
+          },
+          {
+            "number": 182,
+            "code": "    if ("
+          },
+          {
+            "number": 183,
+            "code": "      prevProps.height !== this.props.height ||"
+          },
+          {
+            "number": 184,
+            "code": "      prevProps.width !== this.props.width ||"
+          },
+          {
+            "number": 185,
+            "code": "      prevProps.data !== this.props.data"
+          },
+          {
+            "number": 186,
+            "code": "    ) {"
+          },
+          {
+            "number": 187,
+            "code": "      this._adjustProps();"
+          },
+          {
+            "number": 188,
+            "code": "      this._dataset = this._createDataSetLayer();"
+          },
+          {
+            "number": 189,
+            "code": "    }"
+          }
+        ]
+      },
+      "modified": {
+        "start": 173,
+        "end": 189,
+        "lines": [
+          {
+            "number": 173,
+            "code": "  React.useEffect(() => {"
+          },
+          {
+            "number": 174,
+            "code": "    warnDeprecations(COMPONENT_NAME, props, {"
+          },
+          {
+            "number": 175,
+            "code": "      colors: 'IVSChartDataPoint.color',"
+          },
+          {
+            "number": 176,
+            "code": "      chartLabel: 'use your own title for chart',"
+          },
+          {
+            "number": 177,
+            "code": "    });"
+          },
+          {
+            "number": 178,
+            "code": "    if (!_isChartEmpty()) {"
+          },
+          {
+            "number": 179,
+            "code": "      _adjustProps();"
+          },
+          {
+            "number": 180,
+            "code": "      _dataset.current = _createDataSetLayer();"
+          },
+          {
+            "number": 181,
+            "code": "    }"
+          },
+          {
+            "number": 182,
+            "code": "  }, []);"
+          },
+          {
+            "number": 183,
+            "code": ""
+          },
+          {
+            "number": 184,
+            "code": "  React.useEffect(() => {"
+          },
+          {
+            "number": 185,
+            "code": "    if (!areArraysEqual(props.legendProps?.selectedLegends, selectedLegends)) {"
+          },
+          {
+            "number": 186,
+            "code": "      setSelectedLegends(props.legendProps?.selectedLegends || []);"
+          },
+          {
+            "number": 187,
+            "code": "    }"
+          },
+          {
+            "number": 188,
+            "code": "    if (props.height !== prevProps.height || props.width !== prevProps.width || props.data !== prevProps.data) {"
+          },
+          {
+            "number": 189,
+            "code": "      _adjustProps();"
+          }
+        ]
+      }
+    },
+    {
+      "file_path": "packages\\charts\\src\\VerticalStackedBarChart.base.tsx",
+      "description": "Converted the class component to a functional component using React hooks for state management and lifecycle methods.",
+      "original": {
+        "start": 108,
+        "end": 139,
+        "lines": [
+          {
+            "number": 108,
+            "code": "export class VerticalStackedBarChartBase"
+          },
+          {
+            "number": 109,
+            "code": "  extends React.Component<IVerticalStackedBarChartProps, IVerticalStackedBarChartState>"
+          },
+          {
+            "number": 110,
+            "code": "  implements IChart"
+          },
+          {
+            "number": 111,
+            "code": "{"
+          },
+          {
+            "number": 112,
+            "code": "  public static defaultProps: Partial<IVerticalStackedBarChartProps> = {"
+          },
+          {
+            "number": 113,
+            "code": "    maxBarWidth: 24,"
+          },
+          {
+            "number": 114,
+            "code": "    useUTC: true,"
+          },
+          {
+            "number": 115,
+            "code": "  };"
+          },
+          {
+            "number": 116,
+            "code": ""
+          },
+          {
+            "number": 117,
+            "code": "  private _points: IVerticalStackedChartProps[];"
+          },
+          {
+            "number": 118,
+            "code": "  private _dataset: IVerticalStackedBarDataPoint[];"
+          },
+          {
+            "number": 119,
+            "code": "  private _xAxisLabels: string[];"
+          },
+          {
+            "number": 120,
+            "code": "  private _bars: JSX.Element[];"
+          },
+          {
+            "number": 121,
+            "code": "  private _xAxisType: XAxisTypes;"
+          },
+          {
+            "number": 122,
+            "code": "  private _barWidth: number;"
+          },
+          {
+            "number": 123,
+            "code": "  private _calloutId: string;"
+          },
+          {
+            "number": 124,
+            "code": "  private _colors: string[];"
+          },
+          {
+            "number": 125,
+            "code": "  private margins: IMargins;"
+          },
+          {
+            "number": 126,
+            "code": "  private _isRtl: boolean = getRTL();"
+          },
+          {
+            "number": 127,
+            "code": "  private _createLegendsForLine: (data: IVerticalStackedChartProps[]) => LineLegends[];"
+          },
+          {
+            "number": 128,
+            "code": "  private _lineObject: LineObject;"
+          },
+          {
+            "number": 129,
+            "code": "  private _tooltipId: string;"
+          },
+          {
+            "number": 130,
+            "code": "  private _yMax: number;"
+          },
+          {
+            "number": 131,
+            "code": "  private _calloutAnchorPoint: CalloutAnchorPointData | null;"
+          },
+          {
+            "number": 132,
+            "code": "  private _domainMargin: number;"
+          },
+          {
+            "number": 133,
+            "code": "  private _classNames: IProcessedStyleSet<IVerticalStackedBarChartStyles>;"
+          },
+          {
+            "number": 134,
+            "code": "  private _emptyChartId: string;"
+          },
+          {
+            "number": 135,
+            "code": "  private _xAxisInnerPadding: number;"
+          },
+          {
+            "number": 136,
+            "code": "  private _xAxisOuterPadding: number;"
+          },
+          {
+            "number": 137,
+            "code": "  private _cartesianChartRef: React.RefObject<IChart>;"
+          },
+          {
+            "number": 138,
+            "code": ""
+          },
+          {
+            "number": 139,
+            "code": "  public constructor(props: IVerticalStackedBarChartProps) {"
+          }
+        ]
+      },
+      "modified": {
+        "start": 108,
+        "end": 139,
+        "lines": [
+          {
+            "number": 108,
+            "code": "const VerticalStackedBarChartBase: React.FC<IVerticalStackedBarChartProps> = (props) => {"
+          },
+          {
+            "number": 109,
+            "code": "  const {"
+          },
+          {
+            "number": 110,
+            "code": "    maxBarWidth = 24,"
+          },
+          {
+            "number": 111,
+            "code": "    useUTC = true,"
+          },
+          {
+            "number": 112,
+            "code": "  } = props;"
+          },
+          {
+            "number": 113,
+            "code": ""
+          },
+          {
+            "number": 114,
+            "code": "  const [isCalloutVisible, setIsCalloutVisible] = React.useState(false);"
+          },
+          {
+            "number": 115,
+            "code": "  const [selectedLegends, setSelectedLegends] = React.useState<string[]>(props.legendProps?.selectedLegends || []);"
+          },
+          {
+            "number": 116,
+            "code": "  const [activeLegend, setActiveLegend] = React.useState<string | undefined>(undefined);"
+          },
+          {
+            "number": 117,
+            "code": "  const [refSelected, setRefSelected] = React.useState<SVGGElement | null>(null);"
+          },
+          {
+            "number": 118,
+            "code": "  const [dataForHoverCard, setDataForHoverCard] = React.useState<number>(0);"
+          },
+          {
+            "number": 119,
+            "code": "  const [color, setColor] = React.useState<string>('');"
+          },
+          {
+            "number": 120,
+            "code": "  const [hoverXValue, setHoverXValue] = React.useState<string | number | undefined>('');"
+          },
+          {
+            "number": 121,
+            "code": "  const [YValueHover, setYValueHover] = React.useState<IYValueHover[]>([]);"
+          },
+          {
+            "number": 122,
+            "code": "  const [xCalloutValue, setXCalloutValue] = React.useState<string>('');"
+          },
+          {
+            "number": 123,
+            "code": "  const [yCalloutValue, setYCalloutValue] = React.useState<string>('');"
+          },
+          {
+            "number": 124,
+            "code": "  const [activeXAxisDataPoint, setActiveXAxisDataPoint] = React.useState<number | string | Date>('');"
+          },
+          {
+            "number": 125,
+            "code": "  const [calloutLegend, setCalloutLegend] = React.useState<string>('');"
+          },
+          {
+            "number": 126,
+            "code": "  const [callOutAccessibilityData, setCallOutAccessibilityData] = React.useState<IAccessibilityProps | undefined>();"
+          },
+          {
+            "number": 127,
+            "code": "  const [dataPointCalloutProps, setDataPointCalloutProps] = React.useState<IVSChartDataPoint | undefined>();"
+          },
+          {
+            "number": 128,
+            "code": "  const [stackCalloutProps, setStackCalloutProps] = React.useState<IVerticalStackedChartProps | undefined>();"
+          },
+          {
+            "number": 129,
+            "code": ""
+          },
+          {
+            "number": 130,
+            "code": "  const _points = React.useRef<IVerticalStackedChartProps[]>([]);"
+          },
+          {
+            "number": 131,
+            "code": "  const _dataset = React.useRef<IVerticalStackedBarDataPoint[]>([]);"
+          },
+          {
+            "number": 132,
+            "code": "  const _xAxisLabels = React.useRef<string[]>([]);"
+          },
+          {
+            "number": 133,
+            "code": "  const _bars = React.useRef<JSX.Element[]>([]);"
+          },
+          {
+            "number": 134,
+            "code": "  const _xAxisType = React.useRef<XAxisTypes>();"
+          },
+          {
+            "number": 135,
+            "code": "  const _barWidth = React.useRef<number>();"
+          },
+          {
+            "number": 136,
+            "code": "  const _calloutId = React.useRef<string>(getId('callout'));"
+          },
+          {
+            "number": 137,
+            "code": "  const _colors = React.useRef<string[]>([]);"
+          },
+          {
+            "number": 138,
+            "code": "  const margins = React.useRef<IMargins>();"
+          },
+          {
+            "number": 139,
+            "code": "  const _isRtl = React.useRef<boolean>(getRTL());"
+          }
+        ]
+      }
+    }
+  ]
+}
