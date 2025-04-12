@@ -34,7 +34,7 @@ export class Accordion extends FASTElement {
 }
 
 // @public (undocumented)
-export const accordionDefinition: FASTElementDefinition<typeof Accordion>;
+export const AccordionDefinition: FASTElementDefinition<typeof Accordion>;
 
 // @public
 export const AccordionExpandMode: {
@@ -65,7 +65,7 @@ export interface AccordionItem extends StartEnd {
 }
 
 // @public (undocumented)
-export const accordionItemDefinition: FASTElementDefinition<typeof AccordionItem>;
+export const AccordionItemDefinition: FASTElementDefinition<typeof AccordionItem>;
 
 // Warning: (ae-missing-release-tag) "AccordionItemMarkerPosition" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
 //
@@ -100,20 +100,20 @@ export type AccordionItemSize = ValuesOf<typeof AccordionItemSize>;
 // Warning: (ae-missing-release-tag) "styles" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
 //
 // @public (undocumented)
-export const accordionItemStyles: ElementStyles;
+export const AccordionItemStyles: ElementStyles;
 
 // @public
-export const accordionItemTemplate: ElementViewTemplate<AccordionItem>;
+export const AccordionItemTemplate: ElementViewTemplate<AccordionItem>;
 
 // Warning: (ae-missing-release-tag) "styles" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
 //
 // @public (undocumented)
-export const accordionStyles: ElementStyles;
+export const AccordionStyles: ElementStyles;
 
 // Warning: (ae-missing-release-tag) "template" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
 //
 // @public (undocumented)
-export const accordionTemplate: ElementViewTemplate<Accordion>;
+export const AccordionTemplate: ElementViewTemplate<Accordion>;
 
 // Warning: (ae-different-release-tags) This symbol has another declaration with a different release tag
 // Warning: (ae-internal-mixed-release-tag) Mixed release tags are not allowed for "AnchorButton" because one of its declarations is marked as @internal
